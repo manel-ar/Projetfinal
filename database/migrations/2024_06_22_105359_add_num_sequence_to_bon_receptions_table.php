@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('bon_commande_service', function (Blueprint $table) {
-            $table->string('etat')->default('non livré');
-        });
+        Schema::table('bon_receptions', function (Blueprint $table) {
+            $table->unsignedInteger('num_sequence')->default(0)->after('id');
 
+        });
     }
 
     /**
@@ -22,9 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('bon_commande_service', function (Blueprint $table) {
-            $table->dropColumn('etat');
-
+        Schema::table('bon_receptions', function (Blueprint $table) {
+            //
         });
     }
 };

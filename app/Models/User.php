@@ -34,6 +34,16 @@ class User extends Authenticatable
         return $this->hasOne(Doctor::class);
     }
 
+    // Dans le modèle User
+public function isPharmacist() {
+    return $this->pharmacist !== null;
+}
+
+public function isChiefPharmacist() {
+    return $this->chiefPharmacist !== null;
+}
+    
+
     /**
      * The attributes that should be hidden for serialization.
      *

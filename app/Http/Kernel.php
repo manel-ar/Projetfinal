@@ -67,7 +67,7 @@ class Kernel extends HttpKernel
         'adminMiddleware' => \App\Http\Middleware\AdminMiddleware::class,
         'doctorMiddleware' => \App\Http\Middleware\DoctorMiddleware::class,
         'pharmacistMiddleware' => \App\Http\Middleware\PharmacistMiddleware::class,
-        'chiefPharmacistMiddleware' => \App\Http\Middleware\PharmacistMiddleware::class,
+        'chiefPharmacistMiddleware' => \App\Http\Middleware\CheifPharmacistMiddleware::class,
         'userMiddleware' => \App\Http\Middleware\UserMiddleware::class,
 
     ];
@@ -75,6 +75,8 @@ class Kernel extends HttpKernel
 
         'doctor' => \App\Http\Middleware\DoctorMiddleware::class,
         'pharmacist' => \App\Http\Middleware\PharmacistMiddleware::class,
+        'chiefOrAdmin' => \App\Http\Middleware\ChiefPharmacistOrAdminMiddleware::class,
+
 
     ];
 }

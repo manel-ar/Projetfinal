@@ -22,7 +22,25 @@ class Dci extends Model
     {
         return $this->hasMany(NomCommercial::class, 'id_dci');
     }
-   
+
+    public function lignesBCF()
+    {
+      return $this->belongsTo(LigneBonCommandeFournisseur::class, 'IDdci');
+  }
+
+
+    // public function quantiteLivreEntreDates($startDate, $endDate)
+    // {
+    //     if ($this->nomCommercial) {
+    //         return $this->nomCommercial
+    //             ->flatMap->ligneBonLivraisons
+    //             ->whereBetween('created_at', [$startDate, $endDate])
+    //             ->sum('quantite_livree');
+    //     }
+    //     return 0;
+    // }
+
+    //
 
     public function quantiteLivreEntreDates($startDate, $endDate)
     {
@@ -34,8 +52,18 @@ class Dci extends Model
         }
         return 0;
     }
-    
-    //   
+
+    public function quantiteRecueEntreDates($startDate, $endDate)
+    {
+        if ($this->nomCommercial) {
+            return $this->nomCommercial
+                ->flatMap->ligneBonReceptions
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->sum('quantite_recue');
+        }
+        return 0;
+    }
+
 
 
 

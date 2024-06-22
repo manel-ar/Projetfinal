@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bon_commande_fournisseurs', function (Blueprint $table) {
+        Schema::create('bon_receptions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('id_br');
+            $table->date('date_reception');
+            $table->string('num_livraison')->unique();
+            $table->date('date_livraison');
+            $table->unsignedBigInteger('id_bcf');
             $table->unsignedBigInteger('id_chef_pharmacien');
             $table->unsignedBigInteger('id_pharmacien');
-            $table->unsignedInteger('num_bcf');
-            $table->date('date');
-            $table->string('nom_fournisseur');
-            $table->string('nom_service_contractant');
-            $table->string('email_fournisseur')->unique();
+            $table->foreign('id_bcf')->references('id')->on('bon_commande_fournisseurs')->onDelete('cascade');
             $table->foreign('id_chef_pharmacien')->references('id')->on('chief_pharmacists');
             $table->foreign('id_pharmacien')->references('id')->on('pharmacists');
+
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bon_commande_fournisseurs');
+        Schema::dropIfExists('bon_receptions');
     }
 };

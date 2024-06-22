@@ -58,5 +58,5 @@ class BonlivraisonService extends Model
             $model->num_bls = 'BL' . str_pad($model->num_sequence, 3, '0', STR_PAD_LEFT);
         });
     }
-    
+
 }

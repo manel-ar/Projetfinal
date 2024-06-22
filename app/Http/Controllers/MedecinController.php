@@ -82,9 +82,9 @@ class MedecinController extends Controller
     protected function getIdCommercForLine($id_dci)
     {
         $dci = Dci::findOrFail($id_dci);
-    
+
         $nomCommercial = $dci->nomCommercial->first(); // Sélectionne le premier élément de la collection
-    
+
         if ($nomCommercial) {
             return $nomCommercial->id_commerc;
         } else {
@@ -94,7 +94,7 @@ class MedecinController extends Controller
             return 1; // Remplacez par une valeur appropriée
         }
     }
-    
+
 
     public function listeBonsDeCommandeMedecin()
     {
@@ -135,20 +135,20 @@ class MedecinController extends Controller
             'lignes.*.quantite_demandee' => 'required|integer|min:0',
             'lignes.*.quantite_restante' => 'required|integer|min:0',
         ]);
-    
+
         $bonDeCommande = BonCommandeService::findOrFail($id);
-    
+
         // Vérifier si le bon de commande est déjà livré
         if ($bonDeCommande->etat === 'livré') {
             return redirect()->back()->with('error', 'Vous ne pouvez pas modifier un bon de commande déjà livré.');
         }
-    
+
         $bonDeCommande->date = $request->input('date');
         $bonDeCommande->save();
-    
+
         foreach ($request->input('lignes') as $ligneId => $ligneData) {
             $ligne = LigneBonCommandeService::findOrFail($ligneId);
-            
+
             // Mettre à jour la DCI
             $nomCommercial = $ligne->nomCommercial;
             $nomCommercial->id_dci = $ligneData['dci']; // Supposons que $ligneData['dci'] contient l'ID de la nouvelle DCI
@@ -157,10 +157,10 @@ class MedecinController extends Controller
             $ligne->quantite_restante = $ligneData['quantite_restante'];
             $ligne->save();
         }
-    
+
         return redirect()->back()->with('success', 'Bon de Commande mis à jour avec succès');
     }
-    
+
     // ordonnance
 
     public function create()

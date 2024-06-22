@@ -112,25 +112,97 @@ class DciController extends Controller
     }
     // etat stock
 
-    public function showQuantiteLivreeForm()
+
+
+
+
+
+
+//     public function showQuantiteLivreeForm()
+//     {
+//         $dcis=Dci::all();
+//         return view('quantite-livree-form', compact('dcis'));
+
+//     }
+
+//     public function getQuantiteLivree(Request $request)
+//     {
+//         $request->validate([
+//             'start_date' => 'required|date',
+//             'end_date' => 'required|date|after_or_equal:start_date',
+//         ]);
+
+//         $startDate = Carbon::parse($request->input('start_date'));
+//         $endDate = Carbon::parse($request->input('end_date'));
+
+
+//         $dcis = Dci::with(['nomCommercial.ligneBonLivraisons' => function ($query) use ($startDate, $endDate) {
+//             $query->whereBetween('created_at', [$startDate, $endDate]);
+//         }])
+//         ->whereHas('nomCommercial.ligneBonLivraisons', function ($query) use ($startDate, $endDate) {
+//             $query->whereBetween('created_at', [$startDate, $endDate]);
+//         })
+//         ->get();
+
+
+//         return view('quantite-livree-result', compact('dcis', 'startDate', 'endDate'));
+//     }
+//     ////////////////////////////////////////////////////////
+
+
+//     public function showEtatStockForm()
+// {
+//     $dcis=Dci::all();
+//     return view('etat-stock-form');
+// }
+
+// public function getEtatStock(Request $request)
+// {
+//     $request->validate([
+//         'start_date' => 'required|date',
+//         'end_date' => 'required|date|after_or_equal:start_date',
+//     ]);
+
+//     $startDate = Carbon::parse($request->input('start_date'));
+//     $endDate = Carbon::parse($request->input('end_date'));
+
+//     $dcis = Dci::with([
+//         'nomCommercial.ligneBonLivraisons' => function ($query) use ($startDate, $endDate) {
+//             $query->whereBetween('created_at', [$startDate, $endDate]);
+//         },
+//         'nomCommercial.ligneBonReceptions' => function ($query) use ($startDate, $endDate) {
+//             $query->whereBetween('created_at', [$startDate, $endDate]);
+//         }
+//     ])
+//     ->whereHas('nomCommercial.ligneBonLivraisons', function ($query) use ($startDate, $endDate) {
+//         $query->whereBetween('created_at', [$startDate, $endDate]);
+//     })
+//     ->orWhereHas('nomCommercial.ligneBonReceptions', function ($query) use ($startDate, $endDate) {
+//         $query->whereBetween('created_at', [$startDate, $endDate]);
+//     })
+//     ->get();
+
+//     return view('etat-stock-result', compact('dcis', 'startDate', 'endDate'));
+// }
+
+public function showQuantiteForm()
     {
-        $dcis=Dci::all();
-        return view('quantite-livree-form', compact('dcis'));
-     
+        $dcis = Dci::all();
+        return view('quantite-form', compact('dcis'));
     }
 
-    public function getQuantiteLivree(Request $request)
+    public function getQuantite(Request $request)
     {
         $request->validate([
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
-       
+
         $startDate = Carbon::parse($request->input('start_date'));
         $endDate = Carbon::parse($request->input('end_date'));
-        
 
-        $dcis = Dci::with(['nomCommercial.ligneBonLivraisons' => function ($query) use ($startDate, $endDate) {
+        // Calcul des quantités livrées
+        $dcisLivree = Dci::with(['nomCommercial.ligneBonLivraisons' => function ($query) use ($startDate, $endDate) {
             $query->whereBetween('created_at', [$startDate, $endDate]);
         }])
         ->whereHas('nomCommercial.ligneBonLivraisons', function ($query) use ($startDate, $endDate) {
@@ -138,8 +210,18 @@ class DciController extends Controller
         })
         ->get();
 
+        // Calcul des quantités reçues
+        $dcisRecue = Dci::with(['nomCommercial.ligneBonReceptions' => function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }])
+        ->whereHas('nomCommercial.ligneBonReceptions', function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        })
+        ->get();
 
-        return view('quantite-livree-result', compact('dcis', 'startDate', 'endDate'));
+        return view('quantite-result', compact('dcisLivree', 'dcisRecue', 'startDate', 'endDate'));
     }
-}   
 
+
+
+}

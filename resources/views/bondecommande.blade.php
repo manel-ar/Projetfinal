@@ -363,7 +363,7 @@
         <!-- container-scroller -->
         <!-- plugins:js -->
         <script src="../../../assets/vendors/js/vendor.bundle.base.js"></script>
-       
+
         <script>
             let ligneIndex = 1;
 

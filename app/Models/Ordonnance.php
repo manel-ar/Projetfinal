@@ -20,7 +20,7 @@ class Ordonnance extends Model
         'date',
         'id_doc',
         'num_ordo', 'etat',
-        
+
     ];
 
     public function lignes()
@@ -41,8 +41,8 @@ class Ordonnance extends Model
     {
         return $this->belongsTo(Service::class, 'id_service');
     }
-    
-    
+
+
     // codification
     public static function generateOrdonnanceNumber()
     {

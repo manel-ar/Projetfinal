@@ -16,14 +16,21 @@ class LigneBonCommandeFournisseur extends Model
         'id_dci'
     ];
 
-    public function bonDeCommandeFournisseur()
+    public function bonCommandeFournisseur()
     {
         return $this->belongsTo(BonCommandeFournisseur::class, 'id_bcf');
     }
 
     public function dci()
     {
-        return $this->belongsTo(Dci::class, 'IDdci');
+        return $this->belongsTo(Dci::class, 'id_dci');
     }
+
+    public function lignesBonReception()
+    {
+        return $this->hasMany(LigneBonReception::class, 'id_bcf');
+    }
+
+
 
 }

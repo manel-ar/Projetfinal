@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Xollo</title>
+    <title>MediCare</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/vendors/flag-icon-css/css/flag-icon.min.css">
@@ -200,12 +200,7 @@
 
 <!-- content-wrapper ends -->
 <!-- partial:../../partials/_footer.html -->
-<footer class="footer">
-    <div class="container-fluid clearfix">
-        <span class="d-block text-center text-sm-start d-sm-inline-block">Copyright © 2023 <a href="#">BootstrapDash</a>. All rights reserved.</span>
-        <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
-    </div>
-</footer>
+
 <!-- partial -->
 </div>
 <!-- main-panel ends -->

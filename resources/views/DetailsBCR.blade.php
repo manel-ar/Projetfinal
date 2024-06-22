@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>MediCare</title>
-    <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="css/demo_1/style.css">
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="/css/demo_1/style.css">
+    <!-- End layout styles -->
     <link rel="shortcut icon" href="/images/logooooo.ico ">
-    <style>
-        .no-bullets {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-    </style>
-    {{-- <link rel="shortcut icon" href="https://demo.bootstrapdash.com/xollo/template/assets/images/favicon.ico" /> --}}
 </head>
 <body>
     <div class="container-scroller">
@@ -29,13 +29,13 @@
                 <img src="/images/logog3.png" alt="" width="90px">
                 {{-- <a class="navbar-brand brand-logo-mini" style="color: black">MediCare</a> --}}
             </div>
-            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+            <div class="navbar-menu-wrapper d-flex align-items-stretch"  style="background-color: #D3D3D3">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                     <span class="mdi mdi-equal"></span>
                 </button>
                 <form class="form-inline d-none d-lg-block search my-auto">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Rechercher...">
+                        <input type="text" class="form-control"  style="background-color: #D3D3D3" placeholder="Rechercher...">
                         <div class="input-group-append">
                             <i class="mdi mdi-magnify"></i>
                         </div>
@@ -203,8 +203,9 @@
                     <!-- chat tab ends -->
                 </div>
             </div>
+
             <!-- partial -->
-            <!-- partial:partials/_sidebar.html -->
+            <!-- partial:../../partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav nav-height">
                     <li class="nav-item nav-profile">
@@ -222,7 +223,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link">
+                        <a class="nav-link" href="{{route('getDashboard')}}">
                             <span class="mdi mdi-view-dashboard"></span>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -240,7 +241,8 @@
                         <div class="collapse" id="users">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('getUsers')}}">Liste des utilisateurs</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{route('getAddUser')}}">Ajouter un utilisateur</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('getAddUser')}}"><span class="mdi mdi-account-plus">   Ajouter un utilisateur</span>
+                                 </a></li>
 
                             </ul>
                         </div>
@@ -255,7 +257,8 @@
                         <div class="collapse" id="med">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('getMed')}}">Liste des médecins</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{route('getaddmedecin')}}">Ajouter un médecin</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('getaddmedecin')}}"><span class="mdi mdi-doctor"> Ajouter un médecin</span>
+                                   </a></li>
 
                             </ul>
                         </div>
@@ -274,7 +277,8 @@
                         <div class="collapse" id="services">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('listeServices')}}">Liste des services</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{route('getService')}}">Ajouter Service</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('getService')}}"><span class="mdi mdi-office-building-plus">Ajouter Service</span>
+                                    </a></li>
                             </ul>
                         </div>
                     </li>
@@ -291,7 +295,8 @@
                             <ul class="nav flex-column sub-menu">
 
                                 <li class="nav-item"> <a class="nav-link" href="{{route('listeDCI')}}">Liste DCI</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{route('getDCI')}}">Ajouter DCI</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('getDCI')}}"><span class="mdi mdi-pill"> Ajouter DCI</span>
+                                   </a></li>
                             </ul>
                         </div>
                     </li>
@@ -311,6 +316,18 @@
 
 
                     @if(Auth::check() && Auth::user()->pharmacist()->exists())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('pharmacien.listeBonsDeCommande')}}">
+                            <i class="mdi mdi-file"></i>
+                            <span class="menu-title">consulter les commandes</span>
+                        </a>
+                    </li>
+
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bonlivraison.show') }}">
+                            Bon de Livraison service
+                        </a>
+                    </li> --}}
 
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#bcf" aria-expanded="false" aria-controls="sidebar-layouts">
@@ -320,7 +337,7 @@
                         </a>
                         <div class="collapse" id="bcf">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeBonsDeCommandeFournisseur')}}"> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
 
                                 <li class="nav-item"> <a class="nav-link" href="{{route('bonCF')}}"> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
                             </ul>
@@ -338,7 +355,7 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
 
-                                <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
+                                {{-- <li class="nav-item"> <a class="nav-link" href="{{route('bonCR')}}"> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li> --}}
                             </ul>
                         </div>
                     </li>
@@ -359,7 +376,27 @@
                         </div>
                     </li>
 
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('getAdminLogout')}}">
+                            <i class="mdi mdi-logout"></i>
+                            <span class="menu-title">Déconnexion</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if(Auth::check() && Auth::user()->chiefPharmacist()->exists())
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#services" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-office-building"></span>
+                            <span class="menu-title">Gérer Services</span>
+                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="services">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeServices')}}">Liste des services</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('getService')}}">Ajouter Service</a></li>
+                            </ul>
+                        </div>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('getAdminLogout')}}">
@@ -372,12 +409,12 @@
                     @if(Auth::check() && Auth::user()->doctor()->exists())
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('bondecommande') }}">
-                            Bon de commande
+                            Etablir Bon de commande
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('bons-de-commande.medecin') }}">
-                            Liste des bons de commande
+                            Mes bons de commande
                         </a>
                     </li>
                     <li class="nav-item">
@@ -395,150 +432,144 @@
                     @endif
 
 
+
+
+
                 </ul>
             </nav>
+            <!-- partial -->
 
-             <!-- partial -->
-             <div class="main-panel">
+            <!-- partial -->
+            <div class="main-panel">
                 <div class="content-wrapper">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <input type="text" id="searchBonInput" class="form-control" placeholder="Rechercher par Numéro de Bon" onkeyup="filterTable()">
+                    <div class="row">
+                        <div class="col-lg-12">
+                          <div class="card px-2">
+                            <div class="card-body">
+                              <div class="container-fluid">
+                                <h5 class="text-right my-5">Bon de Reception Numéro: {{ $bonReception->id_br }}</h5>
+                                <hr>
+                              </div>
+
+                              {{-- <div class="container-fluid d-flex justify-content-between">
+                                <div class="col-lg-3 ps-0">
+                                  <p class="mt-5 mb-2"><b>Dénomination:CHU BEJAIA</b></p>
+                                  <p><br>Adresse :Béjaia<br>Téléphone et fax:</p>
+                                  <p> Date  {{ $bonReception->date }}</p>
+                                </div>
+                                <div class="col-lg-3 pr-0">
+                                  <p class="mt-5 mb-2 text-right"><b>Nom et Prénom:Pharmacie Centrale Des Hopitaux </b></p>
+                                  <p class="text-right"> Annexe:Annexe Alger<br>Adresse de l'annexe:Route de wilaya,Oued Smar<br> Dar el Beida, Alger</p>
+                                </div>
+                              </div> --}}
+
+
+                              <div class="container-fluid mt-5 d-flex justify-content-center w-100">
+                                <div class="table-responsive w-100">
+                                  <table class="table">
+                                    <thead>
+                                      <tr class=" text-white" style="background-color: #D3D3D3">
+                                        <th>ID DCI</th>
+                                        <th>Dénomination commune internationale</th>
+                                        <th>Nom Commercial</th>
+                                        <th class="text-right">Quantité demandée</th>
+                                        <th class="text-right">Quantité Recue</th>
+                                        <th class="text-right">Quantité Restante à recevoir</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($bonReception->lignesBR as $ligne)
+                                        <tr>
+                                            <td>{{ $ligne->nomCommercial->dci->IDdci }}</td>
+
+                                            <td>{{ $ligne->nomCommercial->dci->dci }} - {{ $ligne->nomCommercial->dci->forme }} - {{ $ligne->nomCommercial->dci->dosage }}</li>
+
+                                            {{-- <td>{{ $ligne->ligneBonCommandeFournisseur->dci->id_dci ?? 'N/A' }}</td> --}}
+                                            {{-- <td>{{ $ligne->ligneBonCommandeFournisseur->dci->denomination ?? 'N/A' }}</td> --}}
+                                            {{-- <td>{{ $ligne->nomCommercial->nom ?? 'N/A' }}</td> --}}
+                                            <td>{{ $ligne->nomCommercial->nom_commercial }}</td>
+                                            <td>{{ $ligne->quantite_recue + $ligne->quantite_restante }}</td>
+
+                                            {{-- <td class="text-right">{{ $ligne->ligneBonCommandeFournisseur->quantite_demandee ?? 'N/A' }}</td> --}}
+                                            <td class="text-right">{{ $ligne->quantite_recue }}</td>
+                                            <td class="text-right">{{ $ligne->quantite_restante }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                                  </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                                <div class="container-fluid w-100">
+
+                                    <button class="btn btn-success"  onclick="window.history.back()">Retour</button>
+
+
+
+                                  </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Tableau des Bons de Commande fournisseur</h4>
-                            <div class="row">
-                                <div class="col-12">
-                                    <table id="order-listing" class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Bon N°</th>
-                                                <th>Date</th>
-                                                <th>DCI/Forme/Dosage</th>
-                                                <th>Quantité Demandée</th>
-                                                <th>Quantité Restante en Stock</th>
-                                                {{-- <th>Action</th> --}}
-                                                <th>Détails</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($bonsCommande as $bon)
-                                                <tr id="row{{ $bon->id }}">
-                                                    <td>{{ $bon->num_bcf }}</td>
-                                                    <td>{{ $bon->date }}</td>
-                                                    <td>
-                                                        <ul class="no-bullets">
-                                                            @foreach ($bon->lignesBCF as $ligne)
-                                                                <li>{{ $ligne->dci->dci }}-{{ $ligne->dci->forme }}-{{ $ligne->dci->dosage }}</li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </td>
-                                                    <td>
-                                                        <ul class="no-bullets">
-                                                            @foreach($bon->lignesBCF as $ligne)
-                                                                <li>{{ $ligne->quantite_commandee }}</li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </td>
-                                                    <td>
-                                                        <ul class="no-bullets">
-                                                            @foreach($bon->lignesBCF as $ligne)
-                                                                <li>{{ $ligne->quantite_restante }}</li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </td>
-                                                  
-                                                    <td>
-                                                        <a href="{{ route('details', $bon->id) }}" class="btn btn-primary">Détails</a>
-                                                    </td>
+                    @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+                    @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                    @endif
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
 
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        @foreach($bonsCommande as $bon)
-                        <!-- Modal -->
-                        <div class="modal fade" id="modifierModal{{ $bon->id }}" tabindex="-1" role="dialog" aria-labelledby="modifierModalLabel{{ $bon->id }}" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modifierModalLabel{{ $bon->id }}">Modifier Bon N° {{ $bon->num_bcf }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="modifierForm{{ $bon->id }}" action="{{ route('updateBon', $bon->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="form-group">
-                                                <label for="date{{ $bon->id }}">Date</label>
-                                                <input type="date" class="form-control" id="date{{ $bon->id }}" name="date" value="{{ $bon->date }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="quantite_commandee{{ $bon->id }}">Quantité Demandée</label>
-                                                <input type="number" class="form-control" id="quantite_commandee{{ $bon->id }}" name="quantite_commandee" value="{{ $bon->lignesBCF[0]->quantite_commandee }}" required>
-                                            </div>
-                                            <!-- Add more fields as needed -->
-                                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-
-
-@if (session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
+                    <!-- Inclure jQuery -->
+                    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                    <!-- Inclure Bootstrap JavaScript -->
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
 </div>
-@endif
-
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
 </div>
-@endif
-        </div>
-                </div>
-            </div>
+</div>
+</div>
 
-            <script>
-                function filterTable() {
-                    // Declare variables
-                    var input, filter, table, tr, td, i, txtValue;
-                    input = document.getElementById("searchBonInput");
-                    filter = input.value.toUpperCase();
-                    table = document.getElementById("order-listing");
-                    tr = table.getElementsByTagName("tr");
 
-                    // Loop through all table rows, and hide those who don't match the search query
-                    for (i = 1; i < tr.length; i++) {
-                        td = tr[i].getElementsByTagName("td")[0];
-                        if (td) {
-                            txtValue = td.textContent || td.innerText;
-                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                tr[i].style.display = "";
-                            } else {
-                                tr[i].style.display = "none";
-                            }
-                        }
-                    }
-                }
-            </script>
-   <!-- jQuery -->
-   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-   <!-- Bootstrap JS -->
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- content-wrapper ends -->
+<!-- partial:../../partials/_footer.html -->
+
+<!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="/assets/vendors/datatables.net/jquery.dataTables.js"></script>
+<script src="/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="/assets/js/off-canvas.js"></script>
+<script src="/assets/js/hoverable-collapse.js"></script>
+<script src="/assets/js/misc.js"></script>
+<script src="/assets/js/settings.js"></script>
+<script src="/assets/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page -->
+<script src="/assets/js/data-table.js"></script>
+<!-- End custom js for this page -->
+</body>
+
+</html>

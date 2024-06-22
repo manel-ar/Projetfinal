@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="css/demo_1/style.css">
     <link rel="shortcut icon" href="/images/logooooo.ico ">
+
+    {{-- <link rel="shortcut icon" href="https://demo.bootstrapdash.com/xollo/template/assets/images/favicon.ico" /> --}}
+
     <style>
         .no-bullets {
             list-style-type: none;
@@ -18,7 +21,6 @@
             margin: 0;
         }
     </style>
-    {{-- <link rel="shortcut icon" href="https://demo.bootstrapdash.com/xollo/template/assets/images/favicon.ico" /> --}}
 </head>
 <body>
     <div class="container-scroller">
@@ -408,53 +410,68 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Tableau des Bons de Commande fournisseur</h4>
+                            <h4 class="card-title">Tableau des Bons de Réception</h4>
                             <div class="row">
                                 <div class="col-12">
                                     <table id="order-listing" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Bon N°</th>
+                                                <th>Bon Réception N°</th>
+                                                <th>Bon de commande N°</th>
                                                 <th>Date</th>
-                                                <th>DCI/Forme/Dosage</th>
-                                                <th>Quantité Demandée</th>
-                                                <th>Quantité Restante en Stock</th>
-                                                {{-- <th>Action</th> --}}
-                                                <th>Détails</th>
-
+                                                {{-- <th>DCI/Forme/Dosage</th>
+                                                <th>Nom Commercial</th>
+                                                <th>Quantité Commandée</th>
+                                                <th>Quantité Reçue</th>
+                                                <th>Quantité Restante à recevoir</th> --}}
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($bonsCommande as $bon)
-                                                <tr id="row{{ $bon->id }}">
-                                                    <td>{{ $bon->num_bcf }}</td>
-                                                    <td>{{ $bon->date }}</td>
-                                                    <td>
+                                            @foreach($bonReception as $bonR)
+                                                <tr id="row{{ $bonR->id }}">
+                                                    <td>{{ $bonR->id_br }}</td>
+                                                    <td>{{ $bonR->bonCommandeFournisseur->num_bcf ?? 'N/A' }}</td>
+                                                    <td>{{ $bonR->date_reception }}</td>
+                                                    {{-- <td>
                                                         <ul class="no-bullets">
-                                                            @foreach ($bon->lignesBCF as $ligne)
-                                                                <li>{{ $ligne->dci->dci }}-{{ $ligne->dci->forme }}-{{ $ligne->dci->dosage }}</li>
+                                                            @foreach($bonR->lignesBR as $ligne)
+                                                                <li>{{ $ligne->nomCommercial->dci->dci }} - {{ $ligne->nomCommercial->dci->forme }} - {{ $ligne->nomCommercial->dci->dosage }}</li>
                                                             @endforeach
                                                         </ul>
-                                                    </td>
-                                                    <td>
+                                                    </td> --}}
+                                                    {{-- <td>
                                                         <ul class="no-bullets">
-                                                            @foreach($bon->lignesBCF as $ligne)
-                                                                <li>{{ $ligne->quantite_commandee }}</li>
+                                                            @foreach($bonR->lignesBR as $ligne)
+                                                                <li>{{ $ligne->nomCommercial->nom_commercial }}</li>
                                                             @endforeach
                                                         </ul>
-                                                    </td>
-                                                    <td>
+                                                    </td> --}}
+                                                    {{-- <td>
                                                         <ul class="no-bullets">
-                                                            @foreach($bon->lignesBCF as $ligne)
+                                                            @foreach($bonR->lignesBR as $ligne)
+                                                                <li>{{ $ligne->quantite_recue + $ligne->quantite_restante }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </td> --}}
+                                                    {{-- <td>
+                                                        <ul class="no-bullets">
+                                                            @foreach($bonR->lignesBR as $ligne)
+                                                                <li>{{ $ligne->quantite_recue }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </td> --}}
+                                                    {{-- <td>
+                                                        <ul class="no-bullets">
+                                                            @foreach($bonR->lignesBR as $ligne)
                                                                 <li>{{ $ligne->quantite_restante }}</li>
                                                             @endforeach
                                                         </ul>
-                                                    </td>
-                                                  
-                                                    <td>
-                                                        <a href="{{ route('details', $bon->id) }}" class="btn btn-primary">Détails</a>
-                                                    </td>
+                                                    </td> --}}
 
+                                                    <td>
+                                                        <a href="{{ route('detailsBR', $bonR->id) }}" class="btn btn-primary">Détails</a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -462,56 +479,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        @foreach($bonsCommande as $bon)
-                        <!-- Modal -->
-                        <div class="modal fade" id="modifierModal{{ $bon->id }}" tabindex="-1" role="dialog" aria-labelledby="modifierModalLabel{{ $bon->id }}" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modifierModalLabel{{ $bon->id }}">Modifier Bon N° {{ $bon->num_bcf }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="modifierForm{{ $bon->id }}" action="{{ route('updateBon', $bon->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="form-group">
-                                                <label for="date{{ $bon->id }}">Date</label>
-                                                <input type="date" class="form-control" id="date{{ $bon->id }}" name="date" value="{{ $bon->date }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="quantite_commandee{{ $bon->id }}">Quantité Demandée</label>
-                                                <input type="number" class="form-control" id="quantite_commandee{{ $bon->id }}" name="quantite_commandee" value="{{ $bon->lignesBCF[0]->quantite_commandee }}" required>
-                                            </div>
-                                            <!-- Add more fields as needed -->
-                                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-
-
-@if (session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
-
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
-        </div>
+                    </div>
                 </div>
             </div>
 
@@ -538,7 +506,3 @@
                     }
                 }
             </script>
-   <!-- jQuery -->
-   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-   <!-- Bootstrap JS -->
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

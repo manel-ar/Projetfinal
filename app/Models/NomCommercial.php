@@ -24,5 +24,10 @@ class NomCommercial extends Model
     {
         return $this->hasMany(LigneBonLivraison::class, 'id_commerc');
     }
-    
+
+    public function ligneBonReceptions()
+    {
+        return $this->hasMany(LigneBonReception::class, 'id_commerc');
+    }
+
 }

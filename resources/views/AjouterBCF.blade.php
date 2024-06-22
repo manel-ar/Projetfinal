@@ -230,7 +230,7 @@
             </li>
             @endif
 
-            @if(Auth::check() && Auth::user()->pharmacist())
+            @if(Auth::check() && Auth::user()->pharmacist() )
 
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#bcf" aria-expanded="false" aria-controls="sidebar-layouts">
@@ -317,8 +317,8 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-
-                        <h3 class="card-title text-center">Bon de commande Fournisseur</h3>
+                        <h4 class="card-title text-center">CHU DE BEJAIA</h4>
+                        <h6 class="card-title text-left">Bon de Commande Fournisseur</h6>
                         @if($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -328,139 +328,132 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{route('bonCF')}}" method="POST">
+                        <form action="{{ route('bonCF') }}" method="POST">
                             @csrf
-   <input type="hidden" id="id_pharmacien" name="id_pharmacien" value="{{ auth()->user()->id  }}">
- <input type="hidden" id="id_chef_pharmacien" name="id_chef_pharmacien" value="{{ auth()->user()->id}}">
-
-
-
+                            <input type="hidden" id="id_pharmacien" name="id_pharmacien" value="{{ $idPhar }}">
+                            <input type="hidden" id="id_chef_pharmacien" name="id_chef_pharmacien" value="{{ $idChefPharmacien }}">
                             <div class="row">
-                            <div class="col-sm-6 text-left">
-                            <div class="form-group row">
-                                <label for="num_bc" class="col-sm-3 col-form-label">Numéro de Bon de Commande:</label>
-                                <div class="col-sm-6">
-                                    <input type="number" class="form-control" id="num_bc" name="num_bc" title="Numéro de Bon de Commande" value="{{ old('num_bc') }}" required>
+                                <div class="col-sm-6 text-left">
+                                    <div class="form-group row"></div>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <div class="form-group row justify-content-end">
+                                        <label for="date" class="col-sm-3 col-form-label">Date:</label>
+                                        <div class="col-sm-6">
+                                            <input type="date" class="form-control" id="date" name="date" title="Date de la commande" style="border: none; border-bottom: 1px solid #000;" value="{{ old('date') }}" required>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 text-right">
-                            <div class="form-group row justify-content-end">
                             <div class="form-group row">
-                                <label for="date" class="col-sm-3 col-form-label">Date:</label>
-                                <div class="col-sm-6">
-                                    <input type="date" class="form-control" id="date" name="date" title="Date de la commande" value="{{ old('date') }}" required>
+                                <div class="col-md-4">
+                                    <label for="nom_service_contractant" class="col-form-label">Nom du service contractant:</label>
+                                    <input type="text" class="form-control" id="nom_service_contractant" name="nom_service_contractant" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="nom_fournisseur" class="col-form-label">Nom Fournisseur:</label>
+                                    <input type="text" class="form-control" id="nom_fournisseur" name="nom_fournisseur" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="email_fournisseur" class="col-form-label">Email Fournisseur:</label>
+                                    <input type="email" class="form-control" id="email_fournisseur" name="email_fournisseur" required>
                                 </div>
                             </div>
+                            <div id="lignes-container" class="form-group ligne-bon">
+                                <div class="row align-items-center ligne">
+                                    <div class="col-sm-3">
+                                        <label for="id_dci" class="col-form-label">DCI:</label>
+                                        <select class="form-control" name="lignesBCF[0][id_dci]" title="DCI" required onchange="updateQuantiteRestante(this)">
+                                            @foreach($dcis as $dci)
+                                            <option value="{{ $dci->id }}" data-quantite="{{ $dci->quantite_restante }}">{{ $dci->dci }} - {{ $dci->forme }} - {{ $dci->dosage }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label for="quantite_commandee" class="col-form-label">Quantité Demandée:</label>
+                                        <input type="number" class="form-control" name="lignesBCF[0][quantite_commandee]" required>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label for="quantite_restante" class="col-form-label">Quantité Restante:</label>
+                                        <input type="number" class="form-control" name="lignesBCF[0][quantite_restante]" readonly>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <span class="text-danger croix" onclick="supprimerLigne(this)">✖</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn" onclick="ajouterLigne()">Ajouter une ligne</button>
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            <script src="../../../assets/vendors/js/vendor.bundle.base.js"></script>
+            <script src="../../../assets/vendors/select2/select2.min.js"></script>
+            <script src="../../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+            <script src="../../../assets/js/off-canvas.js"></script>
+            <script src="../../../assets/js/hoverable-collapse.js"></script>
+            <script src="../../../assets/js/misc.js"></script>
+            <script src="../../../assets/js/settings.js"></script>
+            <script src="../../../assets/js/todolist.js"></script>
+            <script src="../../../assets/js/file-upload.js"></script>
+            <script src="../../../assets/js/typeahead.js"></script>
+            <script src="../../../assets/js/select2.js"></script>
+
+            <script>
+                let ligneIndex = 1;
+
+                function ajouterLigne() {
+                    const container = document.getElementById('lignes-container');
+                    const newLigne = document.createElement('div');
+                    newLigne.className = 'form-group ligne-bon';
+                    newLigne.innerHTML = `
+                        <div class="row align-items-center ligne">
+                            <div class="col-sm-3">
+                                <select class="form-control" name="lignesBCF[${ligneIndex}][id_dci]" title="DCI" required onchange="updateQuantiteRestante(this)">
+                                    @foreach($dcis as $dci)
+                                        <option value="{{ $dci->id }}" data-quantite="{{ $dci->quantite_restante }}">{{ $dci->dci }} - {{ $dci->forme }} - {{ $dci->dosage }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control" name="lignesBCF[${ligneIndex}][quantite_commandee]" title="Quantité Demandée" required>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control" name="lignesBCF[${ligneIndex}][quantite_restante]" title="Quantité Restante" readonly>
+                            </div>
+                            <div class="col-sm-3">
+                                <span class="text-danger croix" onclick="supprimerLigne(this)">✖</span>
+                            </div>
                         </div>
-</div>
+                    `;
+                    container.appendChild(newLigne);
+                    ligneIndex++;
+                }
 
-<div class="row">
-    <div class="col-sm-6 text-left">
-    <div class="form-group row">
-        <label for="nom" class="col-sm-3 col-form-label">Nom du service contractant:</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" id="nom" name="nom" title="Numéro de Bon de Commande" value="{{ old('num_bc') }}" required>
-        </div>
-    </div>
-</div>
-<div class="col-sm-6 text-right">
-    <div class="form-group row justify-content-end">
-    <div class="form-group row">
-        <label for="nf" class="col-sm-3 col-form-label">Nom Fournisseur:</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" id="nf" name="nom" title="nom du fournisseur" value="{{ old('date') }}" required>
-        </div>
-    </div>
-</div>
-</div>
+                function supprimerLigne(croix) {
+                    const ligne = croix.closest('.ligne');
+                    ligne.remove();
+                }
 
-<div id="lignes-container" class="form-group ligne-bon">
-    {{-- <input type="hidden" name="lignes[0][id_commerc]" value="{{ $idCommerc }}"> --}}
-    <div class="row">
-        <div class="col-sm-3">
-            <label for="id_dci" class="col-form-label">DCI:</label>
-             {{-- <select class="form-control" name="lignes[0][id_dci]" title="DCI" required>
-                @foreach($dcis as $dci)
-                <option value="{{ $dci->IDdci }}">{{ $dci->dci }} - {{ $dci->forme }} - {{ $dci->dosage }}</option>
-                @endforeach
-            </select> --}}
-        </div>
-        <div class="col-sm-3">
-            <label for="quantite_demandee" class="col-form-label">Quantité Demandée:</label>
-            <input type="number" class="form-control" name="lignes[0][quantite_demandee]" required>
-        </div>
-        <div class="col-sm-3">
-            <label for="quantite_restante" class="col-form-label">Quantité Restante:</label>
-            <input type="number" class="form-control" name="lignes[0][quantite_restante]" required>
-        </div>
-        <div class="col-sm-3">
-            <span class="text-danger croix" onclick="supprimerLigne(this)">✖</span>
-        </div>
-    </div>
-</div>
+                function updateQuantiteRestante(selectElement) {
+                    const selectedOption = selectElement.options[selectElement.selectedIndex];
+                    const quantiteRestante = selectedOption.getAttribute('data-quantite');
+                    const quantiteRestanteInput = selectElement.closest('.ligne').querySelector('input[name*="quantite_restante"]');
+                    quantiteRestanteInput.value = quantiteRestante;
+                }
 
-<button type="button" class="btn " onclick="ajouterLigne()">Ajouter une ligne</button>
-<button type="submit" class="btn btn-primary">Envoyé</button>
-</form>
-</div>
-</div>
-</div>
-
-@if (session('success'))
-<div class="alert alert-success">
-{{ session('success') }}
-</div>
-@endif
-
-</div>
-</div>
-</div>
-</div>
-    <script src="../../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="../../../assets/vendors/select2/select2.min.js"></script>
-    <script src="../../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="../../../assets/js/off-canvas.js"></script>
-    <script src="../../../assets/js/hoverable-collapse.js"></script>
-    <script src="../../../assets/js/misc.js"></script>
-    <script src="../../../assets/js/settings.js"></script>
-    <script src="../../../assets/js/todolist.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="../../../assets/js/file-upload.js"></script>
-    <script src="../../../assets/js/typeahead.js"></script>
-    <script src="../../../assets/js/select2.js"></script>
-    <!-- End custom js for this page -->
-</body>
-
-<!-- Mirrored from demo.bootstrapdash.com/xollo/template/demo_1/pages/forms/basic_elements.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 16 May 2024 22:42:47 GMT -->
-{{-- <script>
-    let ligneIndex = 1;
-
-    function ajouterLigne() {
-        const container = document.getElementById('lignes-container');
-        const newLigne = document.createElement('div');
-        newLigne.className = 'form-group ligne-bon';
-        newLigne.innerHTML = `
-            <input type="hidden" name="lignes[${ligneIndex}][id_commerc]" value="{{ $idCommerc }}">
-            <label for="id_dci">DCI</label>
-            <select class="form-control" name="lignes[${ligneIndex}][id_dci]" title="DCI" required>
-                @foreach($dcis as $dci)
-                    <option value="{{ $dci->IDdci }}">{{ $dci->dci }} - {{ $dci->forme }} - {{ $dci->dosage }}</option>
-                @endforeach
-            </select>
-            <label for="quantite_demandee">Quantité Demandée</label>
-            <input type="number" class="form-control" name="lignes[${ligneIndex}][quantite_demandee]" title="Quantité Demandée" placeholder="Quantité Demandée" required>
-            <label for="quantite_restante">Quantité Restante</label>
-            <input type="number" class="form-control" name="lignes[${ligneIndex}][quantite_restante]" title="Quantité Restante" placeholder="Quantité Restante" required>
-        `;
-        container.appendChild(newLigne);
-        ligneIndex++;
-    }
-</script> --}}
-
-</html>
+                // Initialiser la quantité restante pour la première ligne
+                document.addEventListener('DOMContentLoaded', function () {
+                    const firstSelect = document.querySelector('select[name="lignesBCF[0][id_dci]"]');
+                    if (firstSelect) {
+                        updateQuantiteRestante(firstSelect);
+                    }
+                });
+            </script>
+        </body>
+        </html>

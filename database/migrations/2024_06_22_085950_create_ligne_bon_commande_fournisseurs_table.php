@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('ligne_bon_commande_fournisseurs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_bcf'); // Utilisation d'un entier non signé pour l'id_bcs
-            $table->unsignedBigInteger('IDdci'); // Utilisation d'un entier non signé pour l'id_commerc
+            $table->unsignedBigInteger('id_dci'); // Utilisation d'un entier non signé pour l'id_commerc
             $table->integer('quantite_commandee');
             $table->integer('quantite_restante')->nullable();
             $table->timestamps();
 
             $table->foreign('id_bcf')->references('id')->on('bon_commande_fournisseurs')->onDelete('cascade');
-            $table->foreign('IDdci')->references('id')->on('dci')->onDelete('cascade');
+            $table->foreign('id_dci')->references('id')->on('dci')->onDelete('cascade');
 
         });
     }

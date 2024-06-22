@@ -347,7 +347,7 @@
                     </li>
 
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#br" aria-expanded="false" aria-controls="sidebar-layouts">
                             <span class="mdi mdi-file"></span>
                             <span class="menu-title"> Bons de Réception</span>
@@ -358,6 +358,27 @@
                                 <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
 
                                 <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
+                            </ul>
+                        </div>
+                    </li> --}}
+                    <li class="nav-item"> <a class="nav-link" href="{{route('show.quantite.form')}}"> <span class="mdi mdi-note-plus">etat de stock</span></a></li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#br" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-cart"></span>
+                            <span class="menu-title"> Bons de Réception</span>
+                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="br">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeBonsReception')}}"> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
+{{--
+                                <form action="{{ route('bonCR', $bonCommande->id) }}" method="GET">
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Réceptionner</button>
+                                </form> --}}
                             </ul>
                         </div>
                     </li>
@@ -422,6 +443,84 @@
                         </a>
                     </li>
                     @endif
+
+                    @if(Auth::check() && (Auth::user()->chiefPharmacist()->exists()))
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#services" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-office-building"></span>
+                            <span class="menu-title">Gérer Services</span>
+                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="services">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeServices')}}">Liste des services</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('getService')}}"><span class="mdi mdi-office-building-plus">Ajouter Service</span>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#bcf" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-file"></span>
+                            <span class="menu-title"> Bons de Commande</span>
+                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="bcf">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeBonsDeCommandeFournisseur')}}"> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href="{{route('bonCF')}}"> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#br" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-cart"></span>
+                            <span class="menu-title"> Bons de Réception</span>
+                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="br">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeBonsReception')}}"> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
+{{--
+                                <form action="{{ route('bonCR', $bonCommande->id) }}" method="GET">
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Réceptionner</button>
+                                </form> --}}
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pharmacien.listeBonsDeCommande') }}">
+                            liste bons de commande
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('ordonnances.pharmacien')  }}">
+                            liste des Ordonnances
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pharmacien.listebonlivraison')  }}">
+                       liste bons livraison
+                        </a>
+                    </li>
+
+
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('getAdminLogout')}}">
+                            <i class="mdi mdi-logout"></i>
+                            <span class="menu-title">Déconnexion</span>
+                        </a>
+                    </li>
+                    @endif
+
 
 
                 </ul>

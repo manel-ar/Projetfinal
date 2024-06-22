@@ -44,7 +44,7 @@ class BonCommandeService extends Model
     {
         return $this->hasMany(LigneBonCommandeService::class, 'id_bcs');
     }
-  
+
     public function ordonnances()
     {
         return $this->hasMany(Ordonnance::class, 'id_bcs');

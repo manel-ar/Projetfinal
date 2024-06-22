@@ -1,39 +1,299 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
-
+use App\Models\BonCommandeFournisseur;
+use App\Models\LigneBonCommandeFournisseur;
+use App\Models\Pharmacist;
+use App\Models\ChiefPharmacist;
 use App\Models\BonCommandeService;
 use App\Models\NomCommercial;
 use App\Models\Dci;
 use App\Models\Ordonnance;
 use App\Models\BonlivraisonService;
 use App\Models\LigneBonLivraison;
+use App\Models\BonReception;
+use App\Models\LigneBonReception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PharmacienController extends Controller
 {
-    public function bonCF()
-    {
-        return view('AjouterBCF');
-    }
 
-    public function boncommandefournisseur()
-    {
 
-        //$idPharmacien =  auth()->user()->pharmacist->first()->id;
-        //$idPharmacienChef = ChiefPharmacist->id;
-        $dcis = Dci::all();
-        return view('AjouterBCF', compact('dcis'));
-    }
-    public function listeBonsDeCommandeFournisseur()
-    {
-        return view('listeBCF');
-    }
+
+//////////////bon de commande fournisseur
+public function bonCF(){
+    $dcis = Dci::all();
+    foreach ($dcis as $dci) {
+   $dci->quantite_restante = $dci->quantite_en_stock; // assuming 'quantite_stock' is the field in 'dci' table
+   }
+
+   //  $Pharmacien =auth()->user()->pharmacist;
+   //  $idPhar = $Pharmacien->id;
+   //  $chefpharmaciens = ChiefPharmacist::all();
+   //  $idChefPharmacien = $chefpharmaciens->first()->id; // Choisir le premier nom commercial comme valeur par défaut, par exemple
+// Obtenir l'utilisateur authentifié
+$user = auth()->user();
+
+// Vérifier si l'utilisateur est un pharmacien ou un chef pharmacien
+if ($user->isPharmacist()) {
+// Si l'utilisateur est un pharmacien
+$idPhar = $user->pharmacist->id;
+$idChefPharmacien = ChiefPharmacist::first()->id;
+} elseif ($user->isChiefPharmacist()) {
+// Si l'utilisateur est un chef pharmacien
+$idPhar = Pharmacist::first()->id;; // ou l'ID d'un pharmacien par défaut si nécessaire
+$idChefPharmacien = $user->chiefPharmacist->id;
+}
+
+return view('AjouterBCF', compact('dcis','idPhar','idChefPharmacien'));
+}
+public function createBonCommandeFournisseur(Request $request)
+{
+   //dd($request->all());
+
+   $validatedData = $request->validate([
+       //'num_bcf' => 'required|integer',
+       'date' => 'required|date',
+       'nom_service_contractant' => 'required|string',
+       'nom_fournisseur' => 'required|string',
+       'email_fournisseur' => 'required|email|unique:bon_commande_fournisseurs,email_fournisseur',
+       'id_chef_pharmacien' => 'required|integer',
+       'id_pharmacien' => 'required|integer',
+       'lignesBCF' => 'required|array',
+       'lignesBCF.*.id_dci' => 'required|integer',
+       'lignesBCF.*.quantite_commandee' => 'required|integer',
+       'lignesBCF.*.quantite_restante' => 'nullable|integer',
+   ]);
+
+   // Créer le bon de commande
+   $bonCommande = BonCommandeFournisseur::create([
+       // 'num_bcf' => $validatedData['num_bcf'],
+       'date' => $validatedData['date'],
+       'nom_service_contractant' => $validatedData['nom_service_contractant'],
+       'nom_fournisseur' => $validatedData['nom_fournisseur'],
+       'email_fournisseur' => $validatedData['email_fournisseur'],
+       'id_chef_pharmacien' => $validatedData['id_chef_pharmacien'],
+       'id_pharmacien' => $validatedData['id_pharmacien'],
+   ]);
+
+
+   foreach ($validatedData['lignesBCF'] as $ligne) {
+       // Assuming 'IDdci' corresponds to the DCI ID for each line
+       $ligne['id_bcf'] = $bonCommande->id;
+       LigneBonCommandeFournisseur::create([
+           'id_bcf' => $ligne['id_bcf'],
+           'id_dci' => $ligne['id_dci'],
+           'quantite_commandee' => $ligne['quantite_commandee'],
+           'quantite_restante' => $ligne['quantite_restante'] ?? null,
+       ]);
+   }
+   return redirect()->route('bonCF')->with('success', 'Bon de commande créé avec succès');
+}
+
+
+public function listeBonsDeCommandeFournisseur()
+{
+   $bonsCommande = BonCommandeFournisseur::with('lignesBCF')->get();
+   return view('listeBCF', compact('bonsCommande'));
+}
+
+public function details($id)
+{
+$bonCommande = BonCommandeFournisseur::with('lignesBCF.dci')->findOrFail($id);
+$dcis = Dci::all(); // Récupérer toutes les DCIs disponibles
+
+return view('DetailsBCF',compact('bonCommande','dcis'));
+
+}
+
+
+///modifier bon
+public function updateBCF(Request $request, $id)
+{
+
+$ligneBCF = LigneBonCommandeFournisseur::findOrFail($id);
+$bonCommande = BonCommandeFournisseur::findOrFail($ligneBCF->id_bcf);
+
+// Empêcher la modification si le bon est validé
+if ($bonCommande->is_validated) {
+   return redirect()->back()->with('error', 'Vous ne pouvez pas modifier un bon de commande validé.');
+}
+
+
+$validatedData = $request->validate([
+   'dci' => 'required|integer',
+   'quantite_commandee' => 'required|integer',
+]);
+
+$ligneBCF = LigneBonCommandeFournisseur::findOrFail($id);
+$ligneBCF->id_dci = $validatedData['dci'];
+$ligneBCF->quantite_commandee = $validatedData['quantite_commandee'];
+$ligneBCF->save();
+
+return redirect()->back()->with('success', 'Ligne modifiée avec succès.');
+
+// return redirect()->route('DetailsBCF', ['id' => $ligneBCF->id_bcf])->with('success', 'Ligne modifiée avec succès');
+}
+///////valider bon
+
+public function validerBonCommandeFournisseur($id)
+{
+$bonCommande = BonCommandeFournisseur::findOrFail($id);
+
+// Vérifiez si l'utilisateur est un pharmacien chef
+if (!auth()->user()->isChiefPharmacist()) {
+   return redirect()->back()->with('error', 'Seul un pharmacien chef peut valider un bon de commande.');
+}
+
+$bonCommande->is_validated = true;
+$bonCommande->save();
+
+
+return redirect()->back()->with('success', 'Ligne validé avec succès.');
+
+// return redirect()->route('DetailsBCF', ['id' => $id])->with('success', 'Bon de commande validé avec succès.');
+}
+
+////////////bon de reception//////////////////////////////////////////////
+public function bonCR($id_bcf){
+
+    $user = auth()->user();
+
+// Vérifier si l'utilisateur est un pharmacien ou un chef pharmacien
+if ($user->isPharmacist()) {
+// Si l'utilisateur est un pharmacien
+$idPhar = $user->pharmacist->id;
+$idChefPharmacien = ChiefPharmacist::first()->id;
+} elseif ($user->isChiefPharmacist()) {
+// Si l'utilisateur est un chef pharmacien
+$idPhar = Pharmacist::first()->id;; // ou l'ID d'un pharmacien par défaut si nécessaire
+$idChefPharmacien = $user->chiefPharmacist->id;
+}
+
+    // $Pharmacien =auth()->user()->pharmacist;
+    //      $idPhar = $Pharmacien->id;
+    //      $chefpharmaciens = ChiefPharmacist::all();
+    //      $idChefPharmacien = $chefpharmaciens->first()->id; // Choisir le premier nom commercial comme valeur par défaut, par exemple
+    $date_reception= Carbon::now();
+
+
+    $bonCommande = BonCommandeFournisseur::with('lignesBCF.dci.nomCommercial')->findOrFail($id_bcf);
+
+    return view('AjouterBR',compact('bonCommande','date_reception','idPhar','idChefPharmacien'));
+}
+
+ public function createBonCommandeReception(Request $request)
+ {
+    // Validez les données de la requête
+    $validatedData = $request->validate([
+        'num_livraison'=> 'required|string',
+        'date_reception' => 'required|date',
+        'date_livraison' => 'required|date',
+        'id_chef_pharmacien' => 'required|integer',
+        'id_pharmacien' => 'required|integer',
+        'id_bcf' => 'required|exists:bon_commande_fournisseurs,id',
+        'lignesBR' => 'required|array',
+        'lignesBR.*.numero_lot' => 'required|string',
+        'lignesBR.*.date_peremption' => 'required|date',
+        'lignesBR.*.quantite_recue' => 'required|integer',
+        'lignesBR.*.quantite_restante' => 'required|integer',
+        'lignesBR.*.prix_unitaire' => 'required|numeric',
+        'lignesBR.*.montant' => 'required|numeric',
+        'lignesBR.*.id_commerc' => 'required|exists:nom_commercial,id_commerc',
+    ]);
+
+
+ // Check if a reception already exists for the given bon de commande
+  $existingBonReception = BonReception::where('id_bcf', $validatedData['id_bcf'])->first();
+  if ($existingBonReception) {
+      return redirect()->back()->with('error', 'Un bon de réception existe déjà pour ce bon de commande fournisseur.');
+ }
+// Créez le bon de réception
+$bonReception = BonReception::create([
+    'num_livraison' => $validatedData['num_livraison'],
+    'date_livraison' => $validatedData['date_livraison'],
+     'date_reception' => $validatedData['date_reception'],
+     'date_livraison' => $validatedData['date_livraison'],
+     'id_bcf' => $validatedData['id_bcf'],
+     'id_chef_pharmacien' => $validatedData['id_chef_pharmacien'],
+     'id_pharmacien' => $validatedData['id_pharmacien'],
+]);
+// Créez les lignes de bon de réception
+foreach ($validatedData['lignesBR'] as $ligne) {
+    LigneBonReception::create([
+        'numero_lot' => $ligne['numero_lot'],
+        'date_peremption' => $ligne['date_peremption'],
+        'quantite_recue' => $ligne['quantite_recue'],
+        'quantite_restante' => $ligne['quantite_restante'],
+        'prix_unitaire' => $ligne['prix_unitaire'],
+        'montant' => $ligne['montant'],
+        'id_br' => $bonReception->id,
+        'id_commerc' => $ligne['id_commerc'],
+    ]);
+}
+
+ return redirect()->route('bonCR', ['id_bcf' => $validatedData['id_bcf']])->with('success', 'Bon de réception créé avec succès');
+
+  }
+
+
+ public function listeBonsReception()
+ {
+    $bonReception = BonReception::with('lignesBR.ligneBonCommandeFournisseur')->get();
+     return view('listeBR', compact('bonReception'));
+ }
+
+ public function detailsBR($id)
+ {
+    $bonReception = BonReception::with(['lignesBR.ligneBonCommandeFournisseur.dci', 'lignesBR.nomCommercial'])->findOrFail($id);
+
+     //$bonReception = BonReception::with('lignesBR')->findOrFail($id);
+
+      return view('DetailsBCR',compact('bonReception'));
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //bon de livraison
     ////////////////////////////////////////////////////////////
     public function showBonLivraison()
     {
@@ -82,14 +342,14 @@ class PharmacienController extends Controller
     protected function getIdCommercForLine($id_dci)
     {
         $dci = Dci::findOrFail($id_dci);
-    
+
         $nomCommercial = $dci->nomCommercial->first(); // Sélectionne le premier élément de la collection
-    
+
         if ($nomCommercial) {
             return $nomCommercial->id_commerc;
         } else {
-            
-            return 1; 
+
+            return 1;
         }
     }
     public function store(Request $request)

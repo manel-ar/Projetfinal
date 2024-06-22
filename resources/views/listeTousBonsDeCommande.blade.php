@@ -1,128 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from demo.bootstrapdash.com/xollo/template/demo_1/pages/forms/basic_elements.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 16 May 2024 22:42:45 GMT -->
-
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Xollo</title>
-    <!-- plugins:css -->
+    <title>MediCare</title>
     <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="css/demo_1/style.css">
+    <link rel="shortcut icon" href="/images/logooooo.ico ">
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="vendors/select2/select2.min.css">
-    <link rel="stylesheet" href="vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="css/demo_1/style.css">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="https://demo.bootstrapdash.com/xollo/template/assets/images/favicon.ico" />
-</head>
+    <link rel="stylesheet" href="../assets/css/demo_1/style.css">
 
+    {{-- <link rel="shortcut icon" href="https://demo.bootstrapdash.com/xollo/template/assets/images/favicon.ico" /> --}}
+</head>
 <body>
     <div class="container-scroller">
-        <!-- partial:../../partials/_navbar.html -->
+        <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="../../index.html"><img src="https://demo.bootstrapdash.com/xollo/template/assets/images/logo.svg" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="https://demo.bootstrapdash.com/xollo/template/assets/images/logo-mini.svg" alt="logo" /></a>
+                {{-- <a class="navbar-brand brand-logo">MediCare</a> --}}
+                <img src="/images/logog3.png" alt="" width="90px">
+                {{-- <a class="navbar-brand brand-logo-mini" style="color: black">MediCare</a> --}}
             </div>
-            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+            <div class="navbar-menu-wrapper d-flex align-items-stretch" style="background-color: #D3D3D3">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                     <span class="mdi mdi-equal"></span>
                 </button>
                 <form class="form-inline d-none d-lg-block search my-auto">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search here...">
+                        <input type="text" class="form-control"  placeholder="Rechercher...">
                         <div class="input-group-append">
                             <i class="mdi mdi-magnify"></i>
                         </div>
                     </div>
                 </form>
                 <ul class="navbar-nav navbar-nav-right">
-                    <li class="nav-item dropdown d-none d-lg-flex">
-                        <a class="nav-link dropdown-toggle" id="languageDropdown" href="#" data-bs-toggle="dropdown">
-                            <i class="mdi mdi-earth me-2"></i> English </a>
-                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
-                            <a class="dropdown-item" href="#"> French </a>
-                            <a class="dropdown-item" href="#"> Spain </a>
-                            <a class="dropdown-item" href="#"> Latin </a>
-                            <a class="dropdown-item" href="#"> Japanese </a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown d-none d-lg-flex">
-                        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
-                            <i class="mdi mdi-bell-outline"></i>
-                            <span class="count"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <h6 class="p-3 mb-0 bg-white">Notifications</h6>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-success">
-                                        <i class="mdi mdi-calendar"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <p class="text-small text-muted text-right mb-0">4:10 PM</p>
-                                    <p class="preview-subject">Event today</p>
-                                    <p class="text-muted text-small ellipsis"> Just a reminder that you have an event today </p>
-                                </div>
-                            </a>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-warning">
-                                        <i class="mdi mdi-settings"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <p class="text-small text-muted text-right mb-0">4:10 PM</p>
-                                    <p class="preview-subject">Settings</p>
-                                    <p class="text-muted text-small ellipsis"> Update dashboard </p>
-                                </div>
-                            </a>
-                            <h6 class="p-3 mb-0 text-center bg-white">See all notifications</h6>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown d-flex">
-                        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown">
-                            <i class="mdi mdi-email-outline"></i>
-                            <span class="count"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                            <h6 class="p-3 mb-0 bg-white">Messages</h6>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-item-content flex-grow">
-                                    <span class="badge badge-pill badge-danger">REQUEST</span>
-                                    <p class="preview-subject">Support request</p>
-                                    <p class="text-small text-muted ellipsis mb-0"> Please provide support for the items in queue </p>
-                                </div>
-                                <p class="text-small text-muted align-self-start">4:10 PM</p>
-                            </a>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-item-content flex-grow">
-                                    <span class="badge badge-pill badge-primary">INVOICES</span>
-                                    <p class="preview-subject">Invoice received</p>
-                                    <p class="text-small text-muted ellipsis mb-0"> The invoice for the items have been received in your inbox </p>
-                                </div>
-                                <p class="text-small text-muted align-self-start">1 day ago</p>
-                            </a>
-                            <h6 class="p-3 mb-0 text-center bg-white">4 new messages</h6>
-                        </div>
-                    </li>
-                    <li class="nav-item nav-settings d-none d-lg-flex">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-arrow-expand-all"></i>
-                        </a>
-                    </li>
                     <li class="nav-item nav-item-highlight d-flex">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{route('getAdminLogout')}}">
                             <i class="mdi mdi-logout"></i>
                         </a>
                     </li>
@@ -132,6 +59,157 @@
                 </button>
             </div>
         </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            <div class="theme-setting-wrapper">
+                <div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
+                <div id="theme-settings" class="settings-panel">
+                    <i class="settings-close mdi mdi-close"></i>
+                    <p class="settings-heading mt-2">HEADER SKINS</p>
+
+                </div>
+            </div>
+            <div id="right-sidebar" class="settings-panel">
+                <i class="settings-close mdi mdi-close"></i>
+                <ul class="nav nav-tabs" id="setting-panel" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="todo-tab" data-bs-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="chats-tab" data-bs-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="setting-content">
+                    <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+                        <div class="add-items d-flex px-3 mb-0">
+                            <form class="form w-100">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
+                                    <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="list-wrapper px-3">
+                            <ul class="d-flex flex-column-reverse todo-list">
+                                <li>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="checkbox" type="checkbox"> Team review meeting at 3.00 PM </label>
+                                    </div>
+                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="checkbox" type="checkbox"> Prepare for presentation </label>
+                                    </div>
+                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="checkbox" type="checkbox"> Resolve all the low priority tickets due today </label>
+                                    </div>
+                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                </li>
+                                <li class="completed">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="checkbox" type="checkbox" checked> Schedule meeting for next week </label>
+                                    </div>
+                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                </li>
+                                <li class="completed">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="checkbox" type="checkbox" checked> Project review </label>
+                                    </div>
+                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="events py-4 border-bottom px-3">
+                            <div class="wrapper d-flex mb-2">
+                                <i class="mdi mdi-circle-outline text-primary me-2"></i>
+                                <span>Feb 11 2018</span>
+                            </div>
+                            <p class="mb-0 font-weight-thin text-gray">Creating component page</p>
+                            <p class="text-gray mb-0">build a js based app</p>
+                        </div>
+                        <div class="events pt-4 px-3">
+                            <div class="wrapper d-flex mb-2">
+                                <i class="mdi mdi-circle-outline text-primary me-2"></i>
+                                <span>Feb 7 2018</span>
+                            </div>
+                            <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
+                            <p class="text-gray mb-0 ">Call Sarah Graves</p>
+                        </div>
+                    </div>
+                    <!-- To do section tab ends -->
+                    <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
+                        <div class="d-flex align-items-center justify-content-between border-bottom">
+                            <p class="settings-heading border-top-0 mb-3 ps-3 pt-0 border-bottom-0 pb-0">Friends</p>
+                            <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pe-3 font-weight-normal">See All</small>
+                        </div>
+                        <ul class="chat-list">
+                            <li class="list active">
+                                <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+                                <div class="info">
+                                    <p>Thomas Douglas</p>
+                                    <p>Available</p>
+                                </div>
+                                <small class="text-muted my-auto">19 min</small>
+                            </li>
+                            <li class="list">
+                                <div class="profile"><img src="images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
+                                <div class="info">
+                                    <div class="wrapper d-flex">
+                                        <p>Catherine</p>
+                                    </div>
+                                    <p>Away</p>
+                                </div>
+                                <div class="badge badge-success badge-pill my-auto mx-2">4</div>
+                                <small class="text-muted my-auto">23 min</small>
+                            </li>
+                            <li class="list">
+                                <div class="profile"><img src="images/faces/face3.jpg" alt="image"><span class="online"></span></div>
+                                <div class="info">
+                                    <p>Daniel Russell</p>
+                                    <p>Available</p>
+                                </div>
+                                <small class="text-muted my-auto">14 min</small>
+                            </li>
+                            <li class="list">
+                                <div class="profile"><img src="images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
+                                <div class="info">
+                                    <p>James Richardson</p>
+                                    <p>Away</p>
+                                </div>
+                                <small class="text-muted my-auto">2 min</small>
+                            </li>
+                            <li class="list">
+                                <div class="profile"><img src="images/faces/face5.jpg" alt="image"><span class="online"></span></div>
+                                <div class="info">
+                                    <p>Madeline Kennedy</p>
+                                    <p>Available</p>
+                                </div>
+                                <small class="text-muted my-auto">5 min</small>
+                            </li>
+                            <li class="list">
+                                <div class="profile"><img src="images/faces/face6.jpg" alt="image"><span class="online"></span></div>
+                                <div class="info">
+                                    <p>Sarah Graves</p>
+                                    <p>Available</p>
+                                </div>
+                                <small class="text-muted my-auto">47 min</small>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- chat tab ends -->
+                </div>
+            </div>
+            <!-- partial -->
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:../../partials/_settings-panel.html -->
@@ -293,328 +371,195 @@
             </div>
             <!-- partial -->
             <!-- partial:../../partials/_sidebar.html -->
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav nav-height">
-                    <li class="nav-item nav-profile">
-                        <span class="nav-link" href="#">
-                            <div class="profile-image online">
-                                <img src="../../../assets/images/faces/face20.jpg" />
-                            </div>
-                            <p> Donald Azin </p>
-                            <p> donaldazin@xollo.com </p>
-                            <div class="d-flex justify-content-center mt-4 mb-2">
-                                <i class="mdi mdi-gmail me-3"></i>
-                                <i class="mdi mdi-account"></i>
-                            </div>
-                        </span>
-                    </li>
-                    <li class="nav-item nav-category">
-                        <span class="nav-link">Main</span>
-                    </li>
+
+
+                    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                        <ul class="nav nav-height">
+                            <li class="nav-item nav-profile">
+                                <span class="nav-link" href="#">
+                                    <p> Bienvenue {{ Auth::user()->name }} </p>
+
+                                    <p> {{ Auth::user()->email }} </p>
+
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('acceuil')}}">
+                                    <span class="mdi mdi-home"></span>
+                                    <span class="menu-title">Accueil</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link">
+                                    <span class="mdi mdi-view-dashboard"></span>
+                                    <span class="menu-title">Dashboard</span>
+                                </a>
+                            </li>
+
+
+
+                    @if(Auth::check() && Auth::user()->pharmacist()->exists())
                     <li class="nav-item">
-                        <a class="nav-link" href="../../index.html">
-                            <i class="mdi mdi-compass-outline menu-icon"></i>
-                            <span class="menu-title">Dashboard</span>
+                        <a class="nav-link" href="{{route('pharmacien.listeBonsDeCommande')}}">
+                            <i class="mdi mdi-file"></i>
+                            <span class="menu-title">consulter les commandes</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pharmacien.listeBonsDeCommande') }}">
+                            liste bons de commande
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../samples/widgets.html">
-                            <i class="mdi mdi-atom menu-icon"></i>
-                            <span class="menu-title">Widgets</span>
+                        <a class="nav-link" href="{{ route('ordonnances.pharmacien')  }}">
+                            liste des Ordonnances
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
-                            <i class="mdi mdi-arrow-expand-all menu-icon"></i>
-                            <span class="menu-title">Page Layouts</span>
+                        <a class="nav-link" href="{{ route('pharmacien.listebonlivraison')  }}">
+                       liste bons livraison
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#bcf" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-file"></span>
+                            <span class="menu-title"> Bons de Commande</span>
                             <i class="mdi mdi-chevron-right menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="page-layouts">
+                        <div class="collapse" id="bcf">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../layout/boxed-layout.html">Boxed</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../layout/rtl-layout.html">RTL</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeBonsDeCommandeFournisseur')}}"> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href="{{route('bonCF')}}"> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#br" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-file"></span>
+                            <span class="menu-title"> Bons de Réception</span>
+                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="br">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#bl" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-file"></span>
+                            <span class="menu-title"> Bons de Livraison</span>
+                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="bl">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('getAdminLogout')}}">
+                            <i class="mdi mdi-logout"></i>
+                            <span class="menu-title">Déconnexion</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if(Auth::check() && (Auth::user()->chiefPharmacist()->exists()))
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#services" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-office-building"></span>
+                            <span class="menu-title">Gérer Services</span>
+                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="services">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeServices')}}">Liste des services</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('getService')}}"><span class="mdi mdi-office-building-plus">Ajouter Service</span>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#bcf" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-file"></span>
+                            <span class="menu-title"> Bons de Commande</span>
+                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="bcf">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeBonsDeCommandeFournisseur')}}"> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href="{{route('bonCF')}}"> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-layouts" aria-expanded="false" aria-controls="sidebar-layouts">
-                            <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-                            <span class="menu-title">Sidebar Layouts</span>
+                        <a class="nav-link" data-bs-toggle="collapse" href="#br" aria-expanded="false" aria-controls="sidebar-layouts">
+                            <span class="mdi mdi-cart"></span>
+                            <span class="menu-title"> Bons de Réception</span>
                             <i class="mdi mdi-chevron-right menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="sidebar-layouts">
+                        <div class="collapse" id="br">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../layout/compact-menu.html">Compact menu</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../layout/sidebar-collapsed.html">Icon menu</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../layout/sidebar-hidden.html">Sidebar Hidden</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../layout/sidebar-hidden-overlay.html">Sidebar Overlay</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../layout/sidebar-fixed.html">Sidebar Fixed</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('listeBonsReception')}}"> <span class="mdi mdi-list-box">Liste des Bons</span></a></li>
+
+                                <li class="nav-item"> <a class="nav-link" href=""> <span class="mdi mdi-note-plus">nouveau Bon</span></a></li>
+{{--
+                                <form action="{{ route('bonCR', $bonCommande->id) }}" method="GET">
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Réceptionner</button>
+                                </form> --}}
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item nav-category">
-                        <span class="nav-link">UI Features</span>
-                    </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                            <i class="mdi mdi-buffer menu-icon"></i>
-                            <span class="menu-title">Basic Elements</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="ui-basic">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/accordions.html">Accordions</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/buttons.html">Buttons</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/badges.html">Badges</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/breadcrumbs.html">Breadcrumbs</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/dropdowns.html">Dropdowns</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/modals.html">Modals</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/progress.html">Progress bar</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/pagination.html">Pagination</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/tabs.html">Tabs</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/typography.html">Typography</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/tooltips.html">Tooltips</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced" aria-expanded="false" aria-controls="ui-advanced">
-                            <i class="mdi mdi-view-dashboard menu-icon"></i>
-                            <span class="menu-title">Advanced Elements</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="ui-advanced">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/dragula.html">Dragula</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/clipboard.html">Clipboard</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/context-menu.html">Context menu</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/slider.html">Sliders</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/carousel.html">Carousel</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/colcade.html">Colcade</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../ui-features/loaders.html">Loaders</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../ui-features/popups.html">
-                            <i class="mdi mdi-message-text-outline menu-icon"></i>
-                            <span class="menu-title">Popups</span>
+                        <a class="nav-link" href="{{ route('pharmacien.listeBonsDeCommande') }}">
+                            liste bons de commande
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../ui-features/notifications.html">
-                            <i class="mdi mdi-bell-outline menu-icon"></i>
-                            <span class="menu-title">Notifications</span>
+                        <a class="nav-link" href="{{ route('ordonnances.pharmacien')  }}">
+                            liste des Ordonnances
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-                            <i class="mdi mdi-emoticon-happy menu-icon"></i>
-                            <span class="menu-title">Icons</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
+                        <a class="nav-link" href="{{ route('pharmacien.listebonlivraison')  }}">
+                       liste bons livraison
                         </a>
-                        <div class="collapse" id="icons">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../icons/flag-icons.html">Flag icons</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../icons/font-awesome.html">Font Awesome</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../icons/simple-line-icon.html">Simple line icons</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../icons/themify.html">Themify icons</a></li>
-                            </ul>
-                        </div>
                     </li>
-                    <li class="nav-item nav-category">
-                        <span class="nav-link">Forms</span>
-                    </li>
+
+
+
+
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-                            <i class="mdi mdi-clipboard-outline menu-icon"></i>
-                            <span class="menu-title">Form Elements</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="form-elements">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><a class="nav-link" href="basic_elements.html">Basic Elements</a></li>
-                                <li class="nav-item"><a class="nav-link" href="advanced_elements.html">Advanced Elements</a></li>
-                                <li class="nav-item"><a class="nav-link" href="validation.html">Validation</a></li>
-                                <li class="nav-item"><a class="nav-link" href="wizard.html">Wizard</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#editors" aria-expanded="false" aria-controls="editors">
-                            <i class="mdi mdi-pencil-box-outline menu-icon"></i>
-                            <span class="menu-title">Editors</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="editors">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><a class="nav-link" href="text_editor.html">Text editors</a></li>
-                                <li class="nav-item"><a class="nav-link" href="code_editor.html">Code editors</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item nav-category">
-                        <span class="nav-link">Data Representation</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-                            <i class="mdi mdi-chart-donut menu-icon"></i>
-                            <span class="menu-title">Charts</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="charts">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../charts/chartjs.html">ChartJs</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../charts/morris.html">Morris</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../charts/flot-chart.html">Flot</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../charts/google-charts.html">Google charts</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../charts/sparkline.html">Sparkline js</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../charts/c3.html">C3 charts</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../charts/chartist.html">Chartists</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../charts/justGage.html">JustGage</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                            <i class="mdi mdi-table menu-icon"></i>
-                            <span class="menu-title">Tables</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="tables">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../tables/basic-table.html">Basic table</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../tables/data-table.html">Data table</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../tables/js-grid.html">Js-grid</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../tables/sortable-table.html">Sortable table</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#maps" aria-expanded="false" aria-controls="maps">
-                            <i class="mdi mdi-map-marker-outline menu-icon"></i>
-                            <span class="menu-title">Maps</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="maps">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../maps/vector-map.html">Vector Map</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../maps/google-maps.html">Google Map</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item nav-category">
-                        <span class="nav-link">Sample pages</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                            <i class="mdi mdi-lock-outline menu-icon"></i>
-                            <span class="menu-title">User Pages</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="auth">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../samples/login.html"> Login </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/login-2.html"> Login 2 </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/register.html"> Register </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/register-2.html"> Register 2 </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/lock-screen.html"> Lockscreen </a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-                            <i class="mdi mdi-alert-circle-outline menu-icon"></i>
-                            <span class="menu-title">Error pages</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="error">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../samples/error-404.html"> 404 </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/error-500.html"> 500 </a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-                            <i class="mdi mdi-send menu-icon"></i>
-                            <span class="menu-title">General Pages</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="general-pages">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../samples/blank-page.html"> Blank Page </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/profile.html"> Profile </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/faq.html"> FAQ </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/faq-2.html"> FAQ 2 </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/news-grid.html"> News grid </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/timeline.html"> Timeline </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/search-results.html"> Search Results </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/portfolio.html"> Portfolio </a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">
-                            <i class="mdi mdi-cart-outline menu-icon"></i>
-                            <span class="menu-title">E-commerce</span>
-                            <i class="mdi mdi-chevron-right menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="e-commerce">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../samples/invoice.html"> Invoice </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/pricing-table.html"> Pricing Table </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../samples/orders.html"> Orders </a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item nav-category">
-                        <span class="nav-link">Apps</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../apps/email.html">
-                            <i class="mdi mdi-email-open-outline menu-icon"></i>
-                            <span class="menu-title">E-mail</span>
+                        <a class="nav-link" href="{{route('getAdminLogout')}}">
+                            <i class="mdi mdi-logout"></i>
+                            <span class="menu-title">Déconnexion</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../apps/calendar.html">
-                            <i class="mdi mdi-calendar-today menu-icon"></i>
-                            <span class="menu-title">Calendar</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../apps/todo.html">
-                            <i class="mdi mdi-calendar-text menu-icon"></i>
-                            <span class="menu-title">Todo List</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../apps/gallery.html">
-                            <i class="mdi mdi-image-filter menu-icon"></i>
-                            <span class="menu-title">Gallery</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.bootstrapdash.com/demo/xollo/documentation/documentation.html">
-                            <i class="mdi mdi-file-outline menu-icon"></i>
-                            <span class="menu-title">Documentation</span>
-                        </a>
-                    </li>
-                </ul>
+                    @endif
+
+
             </nav>
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
-                    <div class="page-header">
-                        <h3 class="page-title"> Form elements </h3>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Form elements</li>
-                            </ol>
-                        </nav>
-                    </div>
+
                     <div class="row mb-3">
                         <div class="col">
                             <input type="text" id="searchBonInput" class="form-control" placeholder="Rechercher par Numéro de Bon">
@@ -668,17 +613,12 @@
                     @endif
 
 
-                    < </div>
+                     </div>
                         <div>
 
                             <!-- content-wrapper ends -->
                             <!-- partial:../../partials/_footer.html -->
-                            <footer class="footer">
-                                <div class="container-fluid clearfix">
-                                    <span class="d-block text-center text-sm-start d-sm-inline-block">Copyright © 2023 <a href="#">BootstrapDash</a>. All rights reserved.</span>
-                                    <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
-                                </div>
-                            </footer>
+
                             <!-- partial -->
                         </div>
                         <!-- container-scroller -->

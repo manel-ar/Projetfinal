@@ -26,7 +26,7 @@ class LigneBonLivraison extends Model
     {
         return $this->belongsTo(DCI::class, 'id_dci');
     }
-   
+
     protected static function boot()
     {
         parent::boot();
@@ -38,5 +38,5 @@ class LigneBonLivraison extends Model
             $dci->save();
         });
     }
-    
+
 }
